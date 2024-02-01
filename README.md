@@ -23,7 +23,25 @@ RealChat is a chat application build with Node.js and Typescript. It provides a 
 - Real time group chat.
 - Black theme support.
 
-## Run locally with docker
+# Techstack
+
+## Frontend
+
+- Reactjs & Vite
+- Mantine
+- Tanstack Query and React router
+- Zod
+- Socket.io client
+
+## Backend
+
+- Nodejs/Expressjs
+- Socket.io
+- Prisma
+- jsonwebtokens, pino, zod, swagger
+
+---
+## Run locally
 
 1. Clone the repo
 
@@ -55,13 +73,7 @@ RealChat is a chat application build with Node.js and Typescript. It provides a 
    VITE_SOCKET_URL=http://localhost:8080
    ```
 
-4. Run the docker-compose file
-
-   ```bash
-   docker-compose up
-   ```
-
-5. Open the browser and go to `http://localhost`
+3. Open the browser and go to `http://pub-ip:8080`
 
 ## Screenshots
 
@@ -79,21 +91,4 @@ RealChat is a chat application build with Node.js and Typescript. It provides a 
 
 ### [View all screenshots](screenshots/screenshots.md)
 
-# Techstack
 
-## Frontend
-
-- Reactjs & Vite
-- Mantine
-- Tanstack Query and React router
-- Zod
-- Socket.io client
-
-## Backend
-
-- Nodejs/Expressjs
-- Socket.io
-- Prisma
-- jsonwebtokens, pino, zod, swagger
-
----
