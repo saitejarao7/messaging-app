@@ -44,7 +44,9 @@ RealChat is a chat application build with Node.js and Typescript. It provides a 
    SENDGRID_FROM_EMAIL=send-from-email
    NODE_ENV=development
    ```
-
+   **Note:** After build you will get **BUILD** directory
+            - copy: **src/openapi.yaml** to **/build/src/**
+   
    **Frontend** `frontend/.env`
 
    ```bash
@@ -53,13 +55,13 @@ RealChat is a chat application build with Node.js and Typescript. It provides a 
    VITE_SOCKET_URL=http://localhost:8080
    ```
 
-3. Run the docker-compose file
+4. Run the docker-compose file
 
    ```bash
    docker-compose up
    ```
 
-4. Open the browser and go to `http://localhost`
+5. Open the browser and go to `http://localhost`
 
 ## Screenshots
 
