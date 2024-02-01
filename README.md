@@ -52,7 +52,8 @@ RealChat is a chat application build with Node.js and Typescript. It provides a 
 2. Provide the environment variables
 
    **Backend** `backend/.env`
-
+   - genarate JWT SECRET TOKEN using OPENSSL
+   - EMAIL: you can give your email-id
    ```bash
    DATABASE_URL="postgresql://postgres:postgres@localhost:5432/postgres?schema=public"
    JWT_SECRET=randomsecretstring
