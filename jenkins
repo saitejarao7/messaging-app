@@ -1,0 +1,39 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    def imageName = "saitejarao7/messagingapp-fe:${BUILD_NUMBER}"
+                    def dockerfilePath = "messaging-app/frontend/Dockerfile"
+
+                    sh "docker build -f ${dockerfilePath} -t ${imageName} ."
+                    sh "docker tag ${imageName} saitejarao7/messagingapp-fe:latest" // Optional latest tag
+                }
+            }
+        }
+
+        stage('Login to Docker Hub') {
+    steps {
+        script {
+            def username = "saitejarao7"  // Replace with your actual username
+            def password = "Saitejarao@7"  // Replace with your actual password
+
+            sh "docker login -u ${username} -p ${password}"
+        }
+    }
+}
+        stage('Push Docker Image') {
+            steps {
+                script {
+                    def imageName = "saitejarao7/messagingapp-fe:${BUILD_NUMBER}"
+                    sh "docker push ${imageName}"
+                    sh "saitejarao7/messagingapp-fe:latest" // Optional latest tag
+                }
+            }
+        }
+
+        // ... (Optional deployment stage) ...
+    }
+}
