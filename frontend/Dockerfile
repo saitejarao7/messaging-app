@@ -3,7 +3,7 @@ WORKDIR /frontend
 COPY frontend/package*.json ./
 RUN npm install
 COPY frontend/ .
-RUN npm run build && ls -la /frontend
+RUN npm run build
 
 FROM nginx:latest
 COPY --from=builder /frontend/dist /usr/share/nginx/html
