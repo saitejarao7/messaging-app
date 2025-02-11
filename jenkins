@@ -2,38 +2,44 @@ pipeline {
     agent any
 
     stages {
+        stage('SCM Checkout') {
+            steps {
+                checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/saitejarao7/messaging-app.git', credentialsId: 'github']]])
+            }
+        }
+
         stage('Build Docker Image') {
             steps {
                 script {
-                    def imageName = "saitejarao7/messagingapp-fe:${BUILD_NUMBER}"
-                    def dockerfilePath = "messaging-app/frontend/Dockerfile"
+                    def imageName = "saitejarao7/lms-fe:${BUILD_NUMBER}"
+                    def dockerfilePath = "frontend/Dockerfile"
 
                     sh "docker build -f ${dockerfilePath} -t ${imageName} ."
-                    sh "docker tag ${imageName} saitejarao7/messagingapp-fe:latest" // Optional latest tag
+                    sh "docker tag ${imageName} saitejarao7/lms-fe:latest" // Optional latest tag
                 }
             }
         }
 
         stage('Login to Docker Hub') {
-    steps {
-        script {
-            def username = "saitejarao7"  // Replace with your actual username
-            def password = "Saitejarao@7"  // Replace with your actual password
-
-            sh "docker login -u ${username} -p ${password}"
-        }
-    }
-}
-        stage('Push Docker Image') {
             steps {
                 script {
-                    def imageName = "saitejarao7/messagingapp-fe:${BUILD_NUMBER}"
-                    sh "docker push ${imageName}"
-                    sh "saitejarao7/messagingapp-fe:latest" // Optional latest tag
+                    withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                        // Corrected: Use $ for shell variables, and echo $PASSWORD directly
+                        sh "echo \"\$PASSWORD\" | docker login -u \"\$USERNAME\" --password-stdin"
+                    }
                 }
             }
         }
 
-        // ... (Optional deployment stage) ...
+        stage('Push Docker Image') {
+            steps {
+                script {
+                    def imageName = "saitejarao7/lms-fe:${BUILD_NUMBER}"
+
+                    sh "docker push ${imageName}"
+                    sh "docker push saitejarao7/lms-fe:latest"
+                }
+            }
+        }
     }
 }
