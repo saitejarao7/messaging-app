@@ -1,22 +1,9 @@
-# Use an official Node runtime as a parent image
 FROM node:16 AS builder
-
-# Create app directory
 WORKDIR /frontend
-
-# Copy only the package files first to install dependencies
-COPY frontend/package.json frontend/package-lock.json ./
-
-# Install dependencies
+COPY frontend/package*.json ./
 RUN npm install
-
-# Now copy the rest of your frontend code
 COPY frontend/ .
+RUN npm run build && ls -la /frontend
 
-# Build your app
-RUN npm run build
-
-# Optionally, switch to a lighter image (like nginx) for serving your build
 FROM nginx:latest
-COPY --from=builder /frontend/build /usr/share/nginx/html
-
+COPY --from=builder /frontend/dist /usr/share/nginx/html
