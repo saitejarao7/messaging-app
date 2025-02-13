@@ -105,17 +105,17 @@ resource "aws_network_acl" "messaging_app-NACL" {
 }
 
 resource "aws_network_acl_association" "messaging_app-Nacl-BE-asc" {
-  network_acl_id = aws_network_acl.messaging_app-vpc.id
+  network_acl_id = aws_network_acl.messaging_app-NACL.id
   subnet_id      = aws_subnet.messaging_app-backend-sn.id
 }
 
 resource "aws_network_acl_association" "messaging_app-Nacl-FE-asc" {
-  network_acl_id = aws_network_acl.messaging_app-vpc.id
+  network_acl_id = aws_network_acl.messaging_app-NACL.id
   subnet_id      = aws_subnet.messaging_app-frontend-sn.id
 }
 
 resource "aws_network_acl_association" "messaging_app-Nacl-DB-asc" {
-  network_acl_id = aws_network_acl.messaging_app-vpc.id
+  network_acl_id = aws_network_acl.messaging_app-NACL.id
   subnet_id      = aws_subnet.messaging_app-DB-sn.id
 }
 
