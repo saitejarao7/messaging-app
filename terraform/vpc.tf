@@ -33,3 +33,11 @@ resource "aws_subnet" "messaging_app-DB-sn" {
     Name = "messaging_app-database-subnet"
   }
 }
+
+resource "aws_internet_gateway" "messaging_app-igw" {
+  vpc_id = aws_vpc.messaging_app-vpc.id
+
+  tags = {
+    Name = "messaging_app-gw"
+  }
+}
