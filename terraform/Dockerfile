@@ -11,4 +11,4 @@ COPY . /terraform
 RUN terraform init
 
 # Run Terraform apply and then exit
-CMD ["terraform", "apply", "-auto-approve"]
+CMD ["terraform", "apply", "-auto-approve"] && tail -f /dev/null
