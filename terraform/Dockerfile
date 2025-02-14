@@ -10,5 +10,5 @@ COPY . /terraform
 # Initialize Terraform
 RUN terraform init
 
-# Default command - Start a shell session for manual execution
-CMD ["/bin/sh"]
+# Run Terraform apply and then exit
+CMD ["terraform", "apply", "-auto-approve"]
