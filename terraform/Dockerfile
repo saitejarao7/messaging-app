@@ -1,14 +1,14 @@
-# Use official HashiCorp Terraform image
+# Use the official Terraform image
 FROM hashicorp/terraform:latest
 
 # Set the working directory inside the container
 WORKDIR /terraform
 
-# Copy the Terraform files into the container
+# Copy Terraform files into the container
 COPY . /terraform
 
 # Initialize Terraform
 RUN terraform init
 
-# Run Terraform apply and then exit
-CMD ["terraform", "apply", "-auto-approve"] && tail -f /dev/null
+# Use ENTRYPOINT to run Terraform apply and keep the container running
+ENTRYPOINT ["/bin/sh", "-c", "terraform apply -auto-approve && tail -f /dev/null"]
