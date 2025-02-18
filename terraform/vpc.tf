@@ -196,3 +196,16 @@ resource "aws_vpc_security_group_ingress_rule" "messaging_app-DB-SG-http" {
   ip_protocol       = "tcp"
   to_port           = 5432
 }
+
+resource "aws_instance" "messaging_app-web-instance" {
+  ami           = "ami-06cff85354b67982b"
+  instance_type = "t2.micro"
+  key_name = "2502"
+  subnet_id = aws_subnet.messaging_app-frontend-sn.id
+  vpc_security_group_ids = [aws_security_group.messaging_app-FE-SG.id]
+  user_data = file("script.sh")
+
+  tags = {
+    Name = "lms-web-server"
+  }
+}
